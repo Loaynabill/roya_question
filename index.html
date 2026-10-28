@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ff4632" />
+    <title>استبيان متطلبات مشروع تطوير موقع إلكتروني – Roya Agency</title>
+    <meta name="description" content="استبيان متطلبات مشروع تطوير موقع إلكتروني – Roya Marketing Solutions" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Red-.png" />
+</head>
+
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <img src="Red-.png" alt="Roya Agency" class="loader-logo" />
+            <div class="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- ── TOP PROGRESS ── -->
+    <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+
+    <!-- ── HERO HEADER ── -->
+    <header class="site-header">
+        <div class="site-header-inner">
+            <div class="site-logo">
+                <img src="Red-.png" alt="Roya Marketing Solutions" />
+            </div>
+            <div class="site-header-text">
+                <h1 class="site-title">استبيان متطلبات مشروع تطوير موقع إلكتروني</h1>
+                <p class="site-subtitle">Website Development Discovery &amp; Requirements Questionnaire</p>
+            </div>
+            <div class="discovery-pill">Discovery Phase</div>
+        </div>
+        <!-- Decorative bar -->
+        <!-- <div class="header-accent-bar">
+            <div class="accent-seg s1"></div>
+            <div class="accent-seg s2"></div>
+            <div class="accent-seg s3"></div>
+        </div> -->
+    </header>
+
+    <!-- ── FORM ── -->
+    <div class="form-wrapper">
+
+        <!-- ════════════════════════════
+         PAGE 1  ·  Q1–Q5
+    ════════════════════════════ -->
+        <div class="page active" id="page-1">
+
+            <div class="page-band">
+                <img src="Red-.png" alt="Roya" class="band-logo" />
+                <div class="band-info">
+                    <span class="band-title">استبيان متطلبات مشروع تطوير موقع إلكتروني</span>
+                    <span class="band-sub">Website Development Discovery &amp; Requirements Questionnaire</span>
+                </div>
+                <span class="band-page">١ / ٣</span>
+            </div>
+
+            <!-- Section 1 -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">01</div>
+                    <div>
+                        <div class="section-title-ar">نوع المنصة والاستضافة</div>
+                        <div class="section-title-en">Platform &amp; Infrastructure</div>
+                    </div>
+                </div>
+
+                <!-- Q1 -->
+                <div class="question-block" id="q1-block">
+                    <div class="question-text">
+                        <span class="q-num">1</span>
+                        ما هي المنصة أو التقنية المستهدفة للموقع؟
+                        <span class="q-en">(Platform Type)</span>
+                    </div>
+                    <div class="error-msg" id="q1-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <div class="options-grid two-col">
+                        <label class="option-item"><input type="radio" name="q1" value="سلة (Salla)" /><span
+                                class="radio-custom"></span><span class="option-text">سلة <span
+                                    class="opt-en">(Salla)</span></span></label>
+                        <label class="option-item"><input type="radio" name="q1" value="زد (Zid)" /><span
+                                class="radio-custom"></span><span class="option-text">زد <span
+                                    class="opt-en">(Zid)</span></span></label>
+                        <label class="option-item"><input type="radio" name="q1"
+                                value="ووردبريس (WordPress)" /><span class="radio-custom"></span><span
+                                class="option-text">ووردبريس <span
+                                    class="opt-en">(WordPress)</span></span></label>
+                        <label class="option-item"><input type="radio" name="q1" value="شوبيفاي (Shopify)" /><span
+                                class="radio-custom"></span><span class="option-text">شوبيفاي <span
+                                    class="opt-en">(Shopify)</span></span></label>
+                        <label class="option-item"><input type="radio" name="q1"
+                                value="برمجة خاصة / كود (Custom Code)" /><span class="radio-custom"></span><span
+                                class="option-text">برمجة خاصة / كود <span class="opt-en">(Custom
+                                    Code)</span></span></label>
+                    </div>
+                    <div class="text-field-row">
+                        <label class="text-label">تفاصيل المنصة أو البرمجة المطلوبة:</label>
+                        <input type="text" class="text-input" name="q1_details"
+                            placeholder="اكتب هنا أو الصق رابط..." />
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="question-block" id="q2-block">
+                    <div class="question-text"><span class="q-num">2</span> بالنسبة لقالب / ثيم الموقع <span
+                            class="q-en">(Theme Approach)</span>، ما هو الاتجاه المطلوب؟</div>
+                    <div class="error-msg" id="q2-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <div class="options-grid one-col">
+                        <label class="option-item"><input type="radio" name="q2"
+                                value="التعديل وتطوير الثيم الحالي للموقع" /><span class="radio-custom"></span><span
+                                class="option-text">التعديل وتطوير الثيم الحالي للموقع</span></label>
+                        <label class="option-item"><input type="radio" name="q2"
+                                value="شراء ثيم جاهز مناسب ويناسب الهوية وتشغيله" /><span
+                                class="radio-custom"></span><span class="option-text">شراء ثيم جاهز مناسب ويناسب الهوية
+                                وتشغيله</span></label>
+                        <label class="option-item"><input type="radio" name="q2"
+                                value="تصميم وبناء ثيم خاص بالكامل (Custom Theme Build)" /><span
+                                class="radio-custom"></span><span class="option-text">تصميم وبناء ثيم خاص بالكامل <span
+                                    class="opt-en">(Custom Theme Build)</span></span></label>
+                    </div>
+                    <div class="text-field-row">
+                        <label class="text-label">رابط الثيم الحالي أو المقترح شراؤه (إن وجد):</label>
+                        <input type="text" class="text-input url-field" name="q2_details" placeholder="https://..." />
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="question-block" id="q3-block">
+                    <div class="question-text"><span class="q-num">3</span> هل يملك العميل موقع حالي أو حساب
+                        استضافة/نظام إدارة محتوى سيتم التعديل عليه؟</div>
+                    <div class="error-msg" id="q3-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <div class="options-grid one-col">
+                        <label class="option-item"><input type="radio" name="q3"
+                                value="نعم، يوجد موقع وحساب حالي سأقوم بالتسليم والتنسيق عليه" /><span
+                                class="radio-custom"></span><span class="option-text">نعم، يوجد موقع وحساب حالي سأقوم
+                                بالتسليم والتنسيق عليه</span></label>
+                        <label class="option-item"><input type="radio" name="q3"
+                                value="لا، ابني المشروع بالكامل من الصفر (New Build)" /><span
+                                class="radio-custom"></span><span class="option-text">لا، ابني المشروع بالكامل من الصفر
+                                <span class="opt-en">(New Build)</span></span></label>
+                    </div>
+                    <div class="text-field-row">
+                        <label class="text-label">رابط الموقع الحالي أو بيانات الدخول (إن وجدت):</label>
+                        <input type="text" class="text-input url-field" name="q3_details"
+                            placeholder="https://... أو اكتب هنا" />
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="question-block" id="q4-block">
+                    <div class="question-text"><span class="q-num">4</span> هل يملك العميل دومين <span
+                            class="q-en">(Domain Name)</span> أم سيتم شراؤه؟</div>
+                    <div class="error-msg" id="q4-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <div class="options-grid one-col">
+                        <label class="option-item"><input type="radio" name="q4"
+                                value="يملك دومين مسجل وجاهز للموقع" /><span class="radio-custom"></span><span
+                                class="option-text">يملك دومين مسجل وجاهز للموقع</span></label>
+                        <label class="option-item"><input type="radio" name="q4"
+                                value="يرجى شراء وتسجيل دومين جديد ضمن خدمات المشروع" /><span
+                                class="radio-custom"></span><span class="option-text">يرجى شراء وتسجيل دومين جديد ضمن
+                                خدمات المشروع</span></label>
+                    </div>
+                    <div class="text-field-row">
+                        <label class="text-label">اسم الدومين أو الدومين المقترح:</label>
+                        <input type="text" class="text-input" name="q4_details" placeholder="example.com" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">02</div>
+                    <div>
+                        <div class="section-title-ar">لغات الموقع</div>
+                        <div class="section-title-en">Languages &amp; Localization</div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="question-block" id="q5-block">
+                    <div class="question-text"><span class="q-num">5</span> ما هي اللغات المطلوبة للموقع؟ <span
+                            class="q-en">(Site Languages)</span></div>
+                    <div class="error-msg" id="q5-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <div class="options-grid one-col">
+                        <label class="option-item"><input type="radio" name="q5" value="لغة واحدة فقط (عربي)" /><span
+                                class="radio-custom"></span><span class="option-text">لغة واحدة فقط
+                                (عربي)</span></label>
+                        <label class="option-item"><input type="radio" name="q5"
+                                value="ثنائي اللغة (عربي + إنجليزي - RTL/LTR)" /><span class="radio-custom"></span><span
+                                class="option-text">ثنائي اللغة (عربي + إنجليزي - RTL/LTR)</span></label>
+                        <label class="option-item"><input type="radio" name="q5"
+                                value="متعدد اللغات (أكثر من لغتين)" /><span class="radio-custom"></span><span
+                                class="option-text">متعدد اللغات (أكثر من لغتين)</span></label>
+                    </div>
+                    <div class="text-field-row">
+                        <label class="text-label">تحديد اللغات الإضافية المطلوبة:</label>
+                        <input type="text" class="text-input" name="q5_details" placeholder="اكتب هنا..." />
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <img src="Red-.png" alt="Roya" class="footer-logo" />
+                <span class="footer-copy">استبيان متطلبات تطوير الموقع الإلكتروني</span>
+                <span class="footer-page">الصفحة 1 من 3</span>
+            </div>
+        </div><!-- /page-1 -->
+
+
+        <!-- ════════════════════════════
+         PAGE 2  ·  Q6–Q10
+    ════════════════════════════ -->
+        <div class="page" id="page-2">
+
+            <div class="page-band">
+                <img src="Red-.png" alt="Roya" class="band-logo" />
+                <div class="band-info">
+                    <span class="band-title">استبيان متطلبات مشروع تطوير موقع إلكتروني</span>
+                    <span class="band-sub">Website Development Discovery &amp; Requirements Questionnaire</span>
+                </div>
+                <span class="band-page">٢ / ٣</span>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">03</div>
+                    <div>
+                        <div class="section-title-ar">الهوية البصرية والمراجع</div>
+                        <div class="section-title-en">Branding &amp; Design</div>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="question-block" id="q6-block">
+                    <div class="question-text"><span class="q-num">6</span> هل توجد دليل هوية بصرية معتمد <span
+                            class="q-en">(Brand Guidelines)</span> يتضمن الخطوط والألوان؟</div>
+                    <div class="error-msg" id="q6-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <div class="options-grid one-col">
+                        <label class="option-item"><input type="radio" name="q6"
+                                value="نعم، يتوفر ملف دليل الهوية (PDF/AI) كامل الخطوط والألوان" /><span
+                                class="radio-custom"></span><span class="option-text">نعم، يتوفر ملف دليل الهوية
+                                (PDF/AI) كامل الخطوط والألوان</span></label>
+                        <label class="option-item"><input type="radio" name="q6"
+                                value="يتوفر شعار وألوان أساسية فقط بدون دليل كامل" /><span
+                                class="radio-custom"></span><span class="option-text">يتوفر شعار وألوان أساسية فقط بدون
+                                دليل كامل</span></label>
+                        <label class="option-item"><input type="radio" name="q6"
+                                value="لا يوجد، وسنحتاج لتحديد الألوان والخطوط للموقع" /><span
+                                class="radio-custom"></span><span class="option-text">لا يوجد، وسنحتاج لتحديد الألوان
+                                والخطوط للموقع</span></label>
+                    </div>
+                    <div class="text-field-row">
+                        <label class="text-label">الألوان الفعلية / أكواد الألوان <span class="opt-en">(Hex
+                                Codes)</span> (إن وجدت):</label>
+                        <input type="text" class="text-input" name="q6_details"
+                            placeholder="#FF4632  أو اكتب الألوان..." />
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="question-block" id="q7-block">
+                    <div class="question-text"><span class="q-num">7</span> هل تُرجد مواقع مرجعية <span
+                            class="q-en">(References)</span> يعجبك تصميمها أو طريقة عملها؟</div>
+                    <div class="error-msg" id="q7-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <div class="options-grid one-col">
+                        <label class="option-item"><input type="radio" name="q7"
+                                value="نعم، أريد إرفاق الروابط أدناه" /><span class="radio-custom"></span><span
+                                class="option-text">نعم، أريد إرفاق الروابط أدناه</span></label>
+                        <label class="option-item"><input type="radio" name="q7"
+                                value="لا، نترك الحرية الكاملة للابتكار من الفريق" /><span
+                                class="radio-custom"></span><span class="option-text">لا، نترك الحرية الكاملة للابتكار
+                                من الفريق</span></label>
+                    </div>
+                    <div class="text-field-row">
+                        <label class="text-label">روابط المواقع المرجعية (رابط واحد في كل سطر):</label>
+                        <textarea class="text-area url-field" name="q7_details"
+                            placeholder="https://example.com&#10;https://another-site.com"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">04</div>
+                    <div>
+                        <div class="section-title-ar">الدفع، الشحن، والتسويق</div>
+                        <div class="section-title-en">E-Commerce &amp; Integrations</div>
+                    </div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="question-block" id="q8-block">
+                    <div class="question-text"><span class="q-num">8</span> هل سيتم تفعيل الخصومات وكوبونات التخفيض في
+                        الموقع؟</div>
+                    <div class="error-msg" id="q8-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <div class="options-grid one-col">
+                        <label class="option-item"><input type="radio" name="q8"
+                                value="نعم، يتطلب نظام فعال لتطبيق الكوبونات والعروض" /><span
+                                class="radio-custom"></span><span class="option-text">نعم، يتطلب نظام فعال لتطبيق
+                                الكوبونات والعروض</span></label>
+                        <label class="option-item"><input type="radio" name="q8"
+                                value="لا، لا نخطط لاستخدام الكوبونات حالياً" /><span class="radio-custom"></span><span
+                                class="option-text">لا، لا نخطط لاستخدام الكوبونات حالياً</span></label>
+                    </div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="question-block" id="q9-block">
+                    <div class="question-text"><span class="q-num">9</span> بوابات الدفع وشركات الشحن المطلوبة <span
+                            class="q-en">(Payment &amp; Shipping)</span></div>
+                    <div class="error-msg" id="q9-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <div class="options-grid one-col">
+                        <label class="option-item"><input type="radio" name="q9"
+                                value="بوابات الدفع الرئيسية مجتمعة (Mada, Visa, Apple Pay)" /><span
+                                class="radio-custom"></span><span class="option-text">بوابات الدفع الرئيسية مجتمعة <span
+                                    class="opt-en">(Mada, Visa, Apple Pay)</span></span></label>
+                        <label class="option-item"><input type="radio" name="q9"
+                                value="يشمل ربط شركات الشحن والتتبع وتجهيز الطلبات" /><span
+                                class="radio-custom"></span><span class="option-text">يشمل ربط شركات الشحن والتتبع
+                                وتجهيز الطلبات</span></label>
+                        <label class="option-item"><input type="radio" name="q9"
+                                value="تفعيل الشراء بالتقسيط (Tabby / Tamara)" /><span class="radio-custom"></span><span
+                                class="option-text">تفعيل الشراء بالتقسيط <span class="opt-en">(Tabby /
+                                    Tamara)</span></span></label>
+                    </div>
+                    <div class="text-field-row">
+                        <label class="text-label">شركات الشحن المفضلة:</label>
+                        <input type="text" class="text-input" name="q9_details" placeholder="اكتب هنا..." />
+                    </div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="question-block" id="q10-block">
+                    <div class="question-text"><span class="q-num">10</span> الربط مع أدوات التحليل والتسويق <span
+                            class="q-en">(Tracking &amp; Pixels)</span></div>
+                    <div class="error-msg" id="q10-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <p class="multi-select-hint">يمكنك اختيار أكثر من أداة واحدة.</p>
+                    <div class="options-grid two-col q10-options">
+                        <label class="option-item"><input type="checkbox" name="q10" value="Google Analytics" /><span
+                                class="checkbox-custom"></span><span class="option-text">Google Analytics</span></label>
+                        <label class="option-item"><input type="checkbox" name="q10"
+                                value="Meta Pixel (Facebook/Instagram)" /><span class="checkbox-custom"></span><span
+                                class="option-text">Meta Pixel (Facebook/Instagram)</span></label>
+                        <label class="option-item"><input type="checkbox" name="q10" value="TikTok Pixel" /><span
+                                class="checkbox-custom"></span><span class="option-text">TikTok Pixel</span></label>
+                        <label class="option-item"><input type="checkbox" name="q10" value="Snap Pixel" /><span
+                                class="checkbox-custom"></span><span class="option-text">Snap Pixel</span></label>
+                    </div>
+                    <div class="text-field-row">
+                        <label class="text-label">أدوات إضافية مطلوبة:</label>
+                        <input type="text" class="text-input" name="q10_details" placeholder="اكتب هنا..." />
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <img src="Red-.png" alt="Roya" class="footer-logo" />
+                <span class="footer-copy">استبيان متطلبات تطوير الموقع الإلكتروني</span>
+                <span class="footer-page">الصفحة 2 من 3</span>
+            </div>
+        </div><!-- /page-2 -->
+
+
+        <!-- ════════════════════════════
+         PAGE 3  ·  Q11–Q13 + Assets
+    ════════════════════════════ -->
+        <div class="page" id="page-3">
+
+            <div class="page-band">
+                <img src="Red-.png" alt="Roya" class="band-logo" />
+                <div class="band-info">
+                    <span class="band-title">استبيان متطلبات مشروع تطوير موقع إلكتروني</span>
+                    <span class="band-sub">Website Development Discovery &amp; Requirements Questionnaire</span>
+                </div>
+                <span class="band-page">٣ / ٣</span>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">05</div>
+                    <div>
+                        <div class="section-title-ar">الصفحات التعريفية والسياسات</div>
+                        <div class="section-title-en">Legal &amp; Policy Pages</div>
+                    </div>
+                </div>
+
+                <!-- Q11 -->
+                <div class="question-block" id="q11-block">
+                    <div class="question-text"><span class="q-num">11</span> ما هي حالة المحتوى النصي لصفحات السياسات
+                        (من نحن، الشروط، سياسة الخصوصية، الاسترجاع)؟</div>
+                    <div class="error-msg" id="q11-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <div class="options-grid one-col">
+                        <label class="option-item"><input type="radio" name="q11"
+                                value="المحتوى جاهز ومكتوب بالكامل من طرف العميل" /><span
+                                class="radio-custom"></span><span class="option-text">المحتوى جاهز ومكتوب بالكامل من طرف
+                                العميل</span></label>
+                        <label class="option-item"><input type="radio" name="q11"
+                                value="يطلب من المطور صياغة وتوفير نماذج السياسات المعتمدة" /><span
+                                class="radio-custom"></span><span class="option-text">يطلب من المطور صياغة وتوفير نماذج
+                                السياسات المعتمدة</span></label>
+                    </div>
+                    <div class="text-field-row">
+                        <label class="text-label">قائمة السياسات المطلوبة:</label>
+                        <input type="text" class="text-input" name="q11_details" placeholder="اكتب هنا..." />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6 -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">06</div>
+                    <div>
+                        <div class="section-title-ar">الصور والفيديوهات</div>
+                        <div class="section-title-en">Media Scope</div>
+                    </div>
+                </div>
+
+                <!-- Q12 -->
+                <div class="question-block" id="q12-block">
+                    <div class="question-text"><span class="q-num">12</span> بالنسبة لصور البنرات والتصاميم الخاصة
+                        بالموقع، كيف يتم تحديد عددها؟</div>
+                    <div class="error-msg" id="q12-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <div class="options-grid one-col">
+                        <label class="option-item"><input type="radio" name="q12"
+                                value="فقط يحدد عدد البنرات/الصور معين ومحدد مسبقاً" /><span
+                                class="radio-custom"></span><span class="option-text">فقط يحدد عدد البنرات/الصور معين
+                                ومحدد مسبقاً</span></label>
+                        <label class="option-item"><input type="radio" name="q12"
+                                value="يحق للمطور طلب وتصميم أي عدد صور/بنرات مناسباً" /><span
+                                class="radio-custom"></span><span class="option-text">يحق للمطور طلب وتصميم أي عدد
+                                صور/بنرات مناسباً</span></label>
+                    </div>
+                    <div class="text-field-row">
+                        <label class="text-label">ملاحظات / الحد الأقصى المسموح (إن وجد):</label>
+                        <textarea class="text-area" name="q12_details" placeholder="اكتب هنا..." rows="2"></textarea>
+                    </div>
+                </div>
+
+                <!-- Q13 -->
+                <div class="question-block" id="q13-block">
+                    <div class="question-text"><span class="q-num">13</span> هل يغطي العقد إمكانية طلب فيديوهات من
+                        العميل لاستخدامها داخل صفحات الموقع؟</div>
+                    <div class="error-msg" id="q13-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
+                    <div class="options-grid one-col">
+                        <label class="option-item"><input type="radio" name="q13"
+                                value="نعم، يمكن طلب فيديوهات بصورة ما تقتضيها الضرورة" /><span
+                                class="radio-custom"></span><span class="option-text">نعم، يمكن طلب فيديوهات بصورة ما
+                                تقتضيها الضرورة</span></label>
+                        <label class="option-item"><input type="radio" name="q13"
+                                value="لا، يكتفي الموقع بفيديوهات يقدمها العميل" /><span
+                                class="radio-custom"></span><span class="option-text">لا، يكتفي الموقع بفيديوهات يقدمها
+                                العميل</span></label>
+                    </div>
+                    <div class="text-field-row">
+                        <label class="text-label">تفاصيل جهة تصوير الفيديو (إن وجدت):</label>
+                        <textarea class="text-area" name="q13_details" placeholder="اكتب هنا..." rows="2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Assets -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">07</div>
+                    <div>
+                        <div class="section-title-ar">الأصول والملفات المطلوبة</div>
+                        <div class="section-title-en">Required Assets Checklist</div>
+                    </div>
+                </div>
+                <p class="assets-intro">يرجى تزويد فريق العمل بالملفات التالية عبر البريد الإلكتروني:</p>
+
+                <div class="assets-grid">
+                    <div class="asset-card">
+                        <div class="asset-card-header"><span class="asset-num">01</span><span
+                                class="asset-card-title">الشعارات <span class="opt-en">(Logos)</span></span></div>
+                        <div class="asset-items">
+                            <label class="asset-check"><input type="checkbox" name="assets"
+                                    value="الشعار الأساسي الملون (Vector / Transparent PNG)" /><span
+                                    class="checkbox-custom small"></span><span>الشعار الأساسي الملون <span
+                                        class="opt-en">(Vector / Transparent PNG)</span></span></label>
+                            <label class="asset-check"><input type="checkbox" name="assets"
+                                    value="النسخة البيضاء بدون خلفية (White SVG/PNG)" /><span
+                                    class="checkbox-custom small"></span><span>النسخة البيضاء، بدون خلفية <span
+                                        class="opt-en">(White SVG/PNG)</span></span></label>
+                            <label class="asset-check"><input type="checkbox" name="assets"
+                                    value="النسخة السوداء بدون خلفية (Black SVG/PNG)" /><span
+                                    class="checkbox-custom small"></span><span>النسخة السوداء، بدون خلفية <span
+                                        class="opt-en">(Black SVG/PNG)</span></span></label>
+                        </div>
+                        <div class="asset-drive-field">
+                            <label class="asset-link-label" for="assets_drive_logos">روابط Google Drive للشعارات
+                                (اختياري)</label>
+                            <textarea class="text-input assets-drive-links" id="assets_drive_logos"
+                                name="assets_drive_logos" rows="2" dir="ltr"
+                                placeholder="رابط أو أكثر، كل رابط في سطر"></textarea>
+                        </div>
+                    </div>
+                    <div class="asset-card">
+                        <div class="asset-card-header"><span class="asset-num">02</span><span
+                                class="asset-card-title">الخطوط <span class="opt-en">(Typography)</span></span></div>
+                        <div class="asset-items">
+                            <label class="asset-check"><input type="checkbox" name="assets"
+                                    value="ملفات الخط الرئيسي (TTF / OTF / WOFF)" /><span
+                                    class="checkbox-custom small"></span><span>ملفات الخط الرئيسي <span
+                                        class="opt-en">(TTF / OTF / WOFF)</span></span></label>
+                            <label class="asset-check"><input type="checkbox" name="assets"
+                                    value="ملفات الخط الاحتياطي (TTF / OTF / WOFF)" /><span
+                                    class="checkbox-custom small"></span><span>ملفات الخط الاحتياطي <span
+                                        class="opt-en">(TTF / OTF / WOFF)</span></span></label>
+                        </div>
+                        <div class="asset-drive-field">
+                            <label class="asset-link-label" for="assets_drive_fonts">روابط Google Drive للخطوط
+                                (اختياري)</label>
+                            <textarea class="text-input assets-drive-links" id="assets_drive_fonts"
+                                name="assets_drive_fonts" rows="2" dir="ltr"
+                                placeholder="رابط أو أكثر، كل رابط في سطر"></textarea>
+                        </div>
+                    </div>
+                    <div class="asset-card">
+                        <div class="asset-card-header"><span class="asset-num">03</span><span
+                                class="asset-card-title">دليل الهوية <span class="opt-en">(Brand
+                                    Guidelines)</span></span></div>
+                        <div class="asset-items">
+                            <label class="asset-check"><input type="checkbox" name="assets"
+                                    value="كتاب / دليل كتيب الهوية (Brand Book PDF)" /><span
+                                    class="checkbox-custom small"></span><span>كتاب / دليل كتيب الهوية <span
+                                        class="opt-en">(Brand Book PDF)</span></span></label>
+                            <label class="asset-check"><input type="checkbox" name="assets"
+                                    value="جدول أكواد الألوان (Color Palette Hex Codes)" /><span
+                                    class="checkbox-custom small"></span><span>جدول أكواد الألوان <span
+                                        class="opt-en">(Color Palette Hex Codes)</span></span></label>
+                        </div>
+                        <div class="asset-drive-field">
+                            <label class="asset-link-label" for="assets_drive_brand">روابط Google Drive لدليل الهوية
+                                والألوان (اختياري)</label>
+                            <textarea class="text-input assets-drive-links" id="assets_drive_brand"
+                                name="assets_drive_brand" rows="2" dir="ltr"
+                                placeholder="رابط أو أكثر، كل رابط في سطر"></textarea>
+                        </div>
+                    </div>
+                    <div class="asset-card">
+                        <div class="asset-card-header"><span class="asset-num">04</span><span
+                                class="asset-card-title">الوسائط <span class="opt-en">(Media &amp;
+                                    Favicon)</span></span></div>
+                        <div class="asset-items">
+                            <label class="asset-check"><input type="checkbox" name="assets"
+                                    value="صور البنرات والمنتجات بجودة عالية" /><span
+                                    class="checkbox-custom small"></span><span>صور البنرات والمنتجات بجودة
+                                    عالية</span></label>
+                            <label class="asset-check"><input type="checkbox" name="assets"
+                                    value="أيقونة المتصفح (Favicon Icon)" /><span
+                                    class="checkbox-custom small"></span><span>أيقونة المتصفح <span
+                                        class="opt-en">(Favicon Icon)</span></span></label>
+                        </div>
+                        <div class="asset-drive-field">
+                            <label class="asset-link-label" for="assets_drive_media">روابط Google Drive للصور والوسائط
+                                وأيقونة الموقع (اختياري)</label>
+                            <textarea class="text-input assets-drive-links" id="assets_drive_media"
+                                name="assets_drive_media" rows="2" dir="ltr"
+                                placeholder="رابط أو أكثر، كل رابط في سطر"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+                <img src="Red-.png" alt="Roya" class="footer-logo" />
+                <span class="footer-copy">استبيان متطلبات تطوير الموقع الإلكتروني</span>
+                <span class="footer-page">الصفحة 3 من 3</span>
+            </div>
+        </div><!-- /page-3 -->
+
+    </div><!-- /form-wrapper -->
+
+    <!-- ═══ NAV BAR ═══ -->
+    <nav class="nav-bar">
+        <div class="nav-inner">
+            <div class="nav-progress">
+                <div class="nav-step active" id="step-dot-1" onclick="goToPage(1)">
+                    <span class="step-dot"></span>
+                    <span class="step-label">المنصة واللغات</span>
+                </div>
+                <div class="nav-step-line"></div>
+                <div class="nav-step" id="step-dot-2" onclick="goToPage(2)">
+                    <span class="step-dot"></span>
+                    <span class="step-label">الهوية والتجارة</span>
+                </div>
+                <div class="nav-step-line"></div>
+                <div class="nav-step" id="step-dot-3" onclick="goToPage(3)">
+                    <span class="step-dot"></span>
+                    <span class="step-label">الإعلام والأصول</span>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn-prev" id="btnPrev" onclick="navigate(-1)" style="display:none">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                    السابق
+                </button>
+                <button class="btn-next" id="btnNext" onclick="navigate(1)">
+                    التالي
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <button class="btn-submit" id="btnSubmit" onclick="submitForm()" style="display:none">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    إرسال وتحميل PDF
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Toast -->
+    <div class="toast" id="validationToast">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        <span id="toastMsg">يرجى الإجابة على جميع الأسئلة المطلوبة</span>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay hidden" id="successOverlay">
+        <div class="overlay-card">
+            <div class="overlay-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+            </div>
+            <h2>جاري التجهيز...</h2>
+            <p>يتم إنشاء ملف PDF الآن وسيبدأ التحميل تلقائياً</p>
+            <div class="overlay-spinner"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+    <script src="app.js" defer></script>
+</body>
+
+</html>
