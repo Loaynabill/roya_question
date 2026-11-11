@@ -452,6 +452,78 @@ body {
   min-height: 68px;
 }
 
+/* ══ LIVE LINK PREVIEW FOR QUESTIONNAIRE FIELDS ══ */
+.live-link-preview-box {
+  margin-top: 8px;
+  background: #f0f6ff;
+  border: 1px solid #c8ddfd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: linkFadeIn 0.2s ease both;
+}
+
+@keyframes linkFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.live-link-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #1a56a6;
+}
+
+.live-link-header svg {
+  flex-shrink: 0;
+  color: #1a62d6;
+}
+
+.live-link-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.live-link-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  color: #1a62d6;
+  border: 1.5px solid #b7d5fc;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  direction: ltr;
+  text-decoration: none;
+  font-weight: 600;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.live-link-pill:hover {
+  background: #1a62d6;
+  color: #ffffff;
+  border-color: #1a62d6;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(26, 98, 214, 0.25);
+}
+
+.live-link-pill svg {
+  flex-shrink: 0;
+}
+
 /* ══ ASSETS SECTION (checkboxes – multiple OK) ══ */
 .assets-intro {
   font-size: 13px;
@@ -1418,6 +1490,7 @@ body {
   font-size: 12px;
 }
 
+.q9-options .option-item input[type="checkbox"],
 .q10-options .option-item input[type="checkbox"] {
   position: absolute;
   opacity: 0;
@@ -1426,6 +1499,7 @@ body {
   pointer-events: none;
 }
 
+.q9-options .checkbox-custom,
 .q10-options .checkbox-custom {
   width: 20px;
   height: 20px;
@@ -1439,6 +1513,7 @@ body {
   transition: all .18s;
 }
 
+.q9-options .checkbox-custom::after,
 .q10-options .checkbox-custom::after {
   content: '';
   width: 9px;
@@ -1450,16 +1525,19 @@ body {
   transition: transform .15s;
 }
 
+.q9-options .option-item.selected,
 .q10-options .option-item.selected {
   border-color: var(--brand);
   background: var(--brand-light);
 }
 
+.q9-options .option-item.selected .checkbox-custom,
 .q10-options .option-item.selected .checkbox-custom {
   border-color: var(--brand);
   background: var(--brand);
 }
 
+.q9-options .option-item.selected .checkbox-custom::after,
 .q10-options .option-item.selected .checkbox-custom::after {
   opacity: 1;
   transform: rotate(-45deg) scale(1);
@@ -1524,10 +1602,12 @@ button:disabled {
   --brand-border: #ffc0b8;
 }
 
+.q9-options .option-item,
 .q10-options .option-item {
   cursor: pointer;
 }
 
+.q9-options .option-item input[type="checkbox"],
 .q10-options .option-item input[type="checkbox"] {
   position: absolute;
   opacity: 0;
@@ -1535,11 +1615,13 @@ button:disabled {
   height: 1px;
 }
 
+.q9-options .option-item:focus-within,
 .q10-options .option-item:focus-within {
   outline: 2px solid var(--brand);
   outline-offset: 2px;
 }
 
+.q9-options .checkbox-custom,
 .q10-options .checkbox-custom {
   width: 20px;
   height: 20px;
@@ -1552,6 +1634,7 @@ button:disabled {
   justify-content: center;
 }
 
+.q9-options .option-item.selected .checkbox-custom,
 .q10-options .option-item.selected .checkbox-custom {
   border-color: #ff4632;
   background: #ff4632;
@@ -1619,6 +1702,7 @@ button:disabled {
   font-size: 13px;
 }
 
+.q9-options .option-item input[type="checkbox"],
 .q10-options .option-item input[type="checkbox"] {
   pointer-events: auto;
   cursor: pointer;
@@ -1633,10 +1717,12 @@ button:disabled {
   background: var(--brand-light);
 }
 
+.q9-options .checkbox-custom::after,
 .q10-options .checkbox-custom::after {
   opacity: 0;
 }
 
+.q9-options .option-item.selected .checkbox-custom::after,
 .q10-options .option-item.selected .checkbox-custom::after {
   opacity: 1;
 }
@@ -1745,5 +1831,229 @@ button:disabled {
   .loader-logo,
   .loader-line::after {
     animation-duration: 2.5s;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   ESTIMATED PROJECT TIMELINE CARD
+══════════════════════════════════════════════ */
+.timeline-card {
+  margin: 18px 0 22px;
+  background: linear-gradient(135deg, #ffffff 0%, #fff8f6 100%);
+  border: 1.5px solid var(--brand-border);
+  border-right: 5px solid var(--brand);
+  border-radius: 12px;
+  box-shadow: 0 6px 22px rgba(255, 70, 50, 0.08);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.timeline-card-top {
+  margin: 0 0 24px;
+}
+
+.timeline-success-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--brand-light);
+  border: 1px solid var(--brand-border);
+  color: var(--brand);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+.timeline-card.visible {
+  animation: timelineSlideIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes timelineSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.timeline-card-inner {
+  padding: 18px 20px 18px;
+}
+
+.timeline-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed #f0cfcb;
+  flex-wrap: wrap;
+}
+
+.timeline-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.timeline-icon-box {
+  width: 38px;
+  height: 38px;
+  background: var(--brand-light);
+  color: var(--brand);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--brand-border);
+}
+
+.timeline-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.timeline-title-ar {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.timeline-title-en {
+  font-size: 11px;
+  color: var(--text-en);
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  direction: ltr;
+  text-align: right;
+}
+
+.timeline-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--brand);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(255, 70, 50, 0.25);
+  white-space: nowrap;
+}
+
+.timeline-card-body {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-top: 14px;
+}
+
+.timeline-duration-wrap {
+  flex-shrink: 0;
+  min-width: 130px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #f2dedb;
+  border-radius: 10px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease;
+}
+
+.timeline-duration-wrap.pulse {
+  animation: timelinePulse 0.4s ease;
+}
+
+@keyframes timelinePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); background: var(--brand-light); }
+  100% { transform: scale(1); }
+}
+
+.timeline-duration-val {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--brand);
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+.timeline-duration-sub {
+  font-size: 11px;
+  color: #777;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.timeline-divider {
+  width: 1px;
+  height: 48px;
+  background: #ecd4d0;
+  flex-shrink: 0;
+}
+
+.timeline-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.timeline-desc {
+  font-size: 13px;
+  color: var(--text-sec);
+  line-height: 1.6;
+  margin: 0 0 8px 0;
+}
+
+.timeline-summary-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.timeline-chip {
+  display: inline-flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ebd7d4;
+  border-radius: 6px;
+  padding: 3px 9px;
+  font-size: 11px;
+  color: #444;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .timeline-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .timeline-pill {
+    align-self: flex-start;
+  }
+  .timeline-card-body {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .timeline-divider {
+    display: none;
+  }
+  .timeline-duration-wrap {
+    min-width: unset;
+    width: 100%;
+    padding: 12px;
   }
 }

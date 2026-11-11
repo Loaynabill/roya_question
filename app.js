@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initChoiceInputs();
   initAssetCheckboxes();
   updateNav();
+  initLiveLinkPreviews();
 });
 
 function initChoiceInputs() {
@@ -39,6 +40,21 @@ function initChoiceInputs() {
           sibling.closest('.option-item')?.classList.toggle('selected', sibling.checked);
         });
       } else {
+        if (input.checked && input.value.includes('لن يتم تغيير')) {
+          document.querySelectorAll(`input[type="checkbox"][name="${CSS.escape(input.name)}"]`).forEach(sibling => {
+            if (sibling !== input) {
+              sibling.checked = false;
+              sibling.closest('.option-item')?.classList.remove('selected', 'checked');
+            }
+          });
+        } else if (input.checked && !input.value.includes('لن يتم تغيير')) {
+          document.querySelectorAll(`input[type="checkbox"][name="${CSS.escape(input.name)}"]`).forEach(sibling => {
+            if (sibling !== input && sibling.value.includes('لن يتم تغيير')) {
+              sibling.checked = false;
+              sibling.closest('.option-item')?.classList.remove('selected', 'checked');
+            }
+          });
+        }
         label?.classList.toggle('selected', input.checked);
         label?.classList.toggle('checked', input.checked);
       }
@@ -62,8 +78,96 @@ function initAssetCheckboxes() {
   });
 }
 
+function getSelectedPlatform() {
+  const selected = document.querySelector('input[type="radio"][name="q1"]:checked');
+  if (!selected) return null;
+  const val = selected.value.toLowerCase();
+  if (val.includes('zid') || val.includes('زد') || val.includes('shopify') || val.includes('شوبيفاي') || val.includes('salla') || val.includes('سلة')) {
+    return {
+      type: 'saas',
+      label: selected.value.replace(/\s*\([^)]*\)/g, '').trim()
+    };
+  }
+  if (val.includes('wordpress') || val.includes('ووردبريس') || val.includes('custom') || val.includes('برمجة خاصة') || val.includes('كود')) {
+    return {
+      type: 'custom',
+      label: selected.value.replace(/\s*\([^)]*\)/g, '').trim()
+    };
+  }
+  return null;
+}
+
+function getSelectedWorkType() {
+  const selected = document.querySelector('input[type="radio"][name="q3"]:checked');
+  if (!selected) return null;
+  const val = selected.value;
+  if (val.includes('من الصفر') || val.includes('New Build')) {
+    return {
+      type: 'new',
+      label: 'إنشاء من الصفر'
+    };
+  }
+  if (val.includes('موقع وحساب حالي') || val.includes('التعديل')) {
+    return {
+      type: 'existing',
+      label: 'تعديلات على موقع حالي'
+    };
+  }
+  return null;
+}
+
+function getEstimatedTimeline() {
+  const platform = getSelectedPlatform();
+  const workType = getSelectedWorkType();
+  if (!platform || !workType) return null;
+
+  if (platform.type === 'saas') {
+    if (workType.type === 'new') {
+      return {
+        daysAr: '3 – 4 أيام',
+        daysEn: '3 – 4 Days',
+        badge: 'تسليم قياسي · Standard',
+        platformLabel: platform.label,
+        workLabel: workType.label,
+        desc: 'المدة التقديرية لتنفيذ المشروع بناءً على متطلباتك واختياراتك.'
+      };
+    } else {
+      return {
+        daysAr: '1 – 2 يوم',
+        daysEn: '1 – 2 Days',
+        badge: 'تسليم سريع · Express',
+        platformLabel: platform.label,
+        workLabel: workType.label,
+        desc: 'المدة التقديرية لتنفيذ المشروع بناءً على متطلباتك واختياراتك.'
+      };
+    }
+  } else if (platform.type === 'custom') {
+    if (workType.type === 'new') {
+      return {
+        daysAr: '5 – 6 أيام',
+        daysEn: '5 – 6 Days',
+        badge: 'تطوير متكامل · Full Build',
+        platformLabel: platform.label,
+        workLabel: workType.label,
+        desc: 'المدة التقديرية لتنفيذ المشروع بناءً على متطلباتك واختياراتك.'
+      };
+    } else {
+      return {
+        daysAr: '3 – 4 أيام',
+        daysEn: '3 – 4 Days',
+        badge: 'تطوير وتعديل · Custom Dev',
+        platformLabel: platform.label,
+        workLabel: workType.label,
+        desc: 'المدة التقديرية لتنفيذ المشروع بناءً على متطلباتك واختياراتك.'
+      };
+    }
+  }
+  return null;
+}
+
 function hasAnswer(name) {
-  if (name === 'q10') return document.querySelectorAll('input[type="checkbox"][name="q10"]:checked').length > 0;
+  const checkboxes = document.querySelectorAll(`input[type="checkbox"][name="${CSS.escape(name)}"]`);
+  if (checkboxes.length > 0) return document.querySelectorAll(`input[type="checkbox"][name="${CSS.escape(name)}"]:checked`).length > 0;
   return Boolean(document.querySelector(`input[type="radio"][name="${CSS.escape(name)}"]:checked`));
 }
 
@@ -75,7 +179,14 @@ function validatePage(pageNum) {
     const answered = hasAnswer(name);
     block?.classList.toggle('has-error', !answered);
     const error = document.getElementById(`${name}-error`);
-    if (error) error.textContent = answered ? '' : (name === 'q10' ? 'يرجى اختيار أداة واحدة على الأقل.' : 'يرجى اختيار إجابة لهذا السؤال.');
+    if (error) {
+      if (answered) {
+        error.textContent = '';
+      } else {
+        const errorText = (name === 'q10') ? 'يرجى اختيار أداة واحدة على الأقل.' : (name === 'q9' ? 'يرجى اختيار خيار واحد على الأقل.' : 'يرجى اختيار إجابة لهذا السؤال.');
+        error.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg> ${errorText}`;
+      }
+    }
     if (!answered) {
       valid = false;
       if (!firstInvalid) firstInvalid = block;
@@ -149,8 +260,9 @@ function updateNav() {
 function collectAnswers() {
   const answers = {};
   Object.keys(REQUIRED_BY_PAGE).flatMap(page => REQUIRED_BY_PAGE[page]).forEach(name => {
-    if (name === 'q10') {
-      answers.q10 = [...document.querySelectorAll('input[type="checkbox"][name="q10"]:checked')].map(input => input.value);
+    const checkboxes = document.querySelectorAll(`input[type="checkbox"][name="${CSS.escape(name)}"]`);
+    if (checkboxes.length > 0) {
+      answers[name] = [...document.querySelectorAll(`input[type="checkbox"][name="${CSS.escape(name)}"]:checked`)].map(input => input.value);
     } else {
       const selected = document.querySelector(`input[type="radio"][name="${CSS.escape(name)}"]:checked`);
       if (selected) answers[name] = selected.value;
@@ -161,34 +273,6 @@ function collectAnswers() {
     if (input.name && input.value.trim()) answers[input.name] = input.value.trim();
   });
   return answers;
-}
-
-async function submitForm() {
-  for (let page = 1; page <= TOTAL_PAGES; page++) {
-    if (!validatePage(page)) {
-      goToPage(page, true);
-      return;
-    }
-  }
-  // Open the print window directly from the click handler to avoid popup blockers.
-  const printWindow = window.open('', '_blank');
-  if (!printWindow) {
-    alert('المتصفح منع فتح نافذة PDF. اسمح بالنوافذ المنبثقة للموقع ثم حاول مرة أخرى.');
-    return;
-  }
-  const overlay = document.getElementById('successOverlay');
-  overlay?.classList.remove('hidden');
-  const button = document.getElementById('btnSubmit');
-  if (button) button.disabled = true;
-  try {
-    await generatePDF(collectAnswers(), printWindow);
-  } catch (error) {
-    console.error('PDF generation failed:', error);
-    alert('تعذر إنشاء ملف PDF. تأكد من اتصال الإنترنت، ثم حاول مرة أخرى. إذا استمرت المشكلة افتح الموقع باستخدام Live Server.');
-  } finally {
-    overlay?.classList.add('hidden');
-    if (button) button.disabled = false;
-  }
 }
 
 function cleanLabel(element) {
@@ -202,28 +286,159 @@ function makePdfElement(tag, className, text) {
   return element;
 }
 
+function extractUrls(text) {
+  if (!text) return [];
+  const urlRegex = /(https?:\/\/[^\s<]+|www\.[^\s<]+|[a-zA-Z0-9.-]+\.(?:com|org|net|sa|io|app|dev|ai|me|co|store|online|tech|shop|link)[^\s<]*)/gi;
+  const matches = text.match(urlRegex) || [];
+  return [...new Set(matches.map(raw => raw.replace(/[.,،؛)\]}>]+$/, '')).filter(Boolean))];
+}
+
+function normalizeHref(url) {
+  if (!url) return '';
+  const clean = url.trim();
+  if (/^https?:\/\//i.test(clean)) return clean;
+  return 'https://' + clean;
+}
+
+function initLiveLinkPreviews() {
+  document.querySelectorAll('.form-wrapper textarea').forEach(textarea => {
+    let previewBox = textarea.parentElement.querySelector('.live-link-preview-box');
+    if (!previewBox) {
+      previewBox = document.createElement('div');
+      previewBox.className = 'live-link-preview-box';
+      previewBox.style.display = 'none';
+      textarea.parentElement.appendChild(previewBox);
+    }
+
+    const updatePreview = () => {
+      const urls = extractUrls(textarea.value);
+      if (urls.length === 0) {
+        previewBox.innerHTML = '';
+        previewBox.style.display = 'none';
+        return;
+      }
+
+      previewBox.innerHTML = '';
+      previewBox.style.display = 'flex';
+
+      const header = document.createElement('div');
+      header.className = 'live-link-header';
+      header.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+        <span>روابط مضافة (اضغط للمعاينة والفتح في نافذة جديدة):</span>
+      `;
+      previewBox.appendChild(header);
+
+      const list = document.createElement('div');
+      list.className = 'live-link-list';
+
+      urls.forEach(url => {
+        const link = document.createElement('a');
+        link.className = 'live-link-pill';
+        link.href = normalizeHref(url);
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.title = `فتح ${url}`;
+        link.innerHTML = `
+          <span>${url}</span>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        `;
+        list.appendChild(link);
+      });
+
+      previewBox.appendChild(list);
+    };
+
+    textarea.addEventListener('input', updatePreview);
+    updatePreview();
+  });
+}
+
+function formatTextWithLinks(container, text) {
+  if (!text || !text.trim()) {
+    container.textContent = 'لم تتم إضافة تفاصيل.';
+    return;
+  }
+
+  const urlRegex = /(https?:\/\/[^\s<]+|www\.[^\s<]+|[a-zA-Z0-9.-]+\.(?:com|org|net|sa|io|app|dev|ai|me|co|store|online|tech|shop|link)[^\s<]*)/gi;
+  const lines = text.split('\n');
+
+  lines.forEach((line, lineIndex) => {
+    if (lineIndex > 0) {
+      container.appendChild(document.createElement('br'));
+    }
+
+    let lastIndex = 0;
+    let match;
+    urlRegex.lastIndex = 0;
+
+    while ((match = urlRegex.exec(line)) !== null) {
+      const matchStart = match.index;
+      const matchEnd = urlRegex.lastIndex;
+
+      if (matchStart > lastIndex) {
+        container.appendChild(document.createTextNode(line.substring(lastIndex, matchStart)));
+      }
+
+      const rawUrl = match[0];
+      const cleanUrl = rawUrl.replace(/[.,،؛)\]}>]+$/, '');
+      const trailingPunct = rawUrl.substring(cleanUrl.length);
+
+      const anchor = document.createElement('a');
+      anchor.href = normalizeHref(cleanUrl);
+      anchor.target = '_blank';
+      anchor.rel = 'noopener noreferrer';
+      anchor.className = 'clickable-pdf-link';
+      anchor.textContent = cleanUrl;
+      container.appendChild(anchor);
+
+      if (trailingPunct) {
+        container.appendChild(document.createTextNode(trailingPunct));
+      }
+
+      lastIndex = matchEnd;
+    }
+
+    if (lastIndex < line.length) {
+      container.appendChild(document.createTextNode(line.substring(lastIndex)));
+    }
+  });
+}
+
 function addPdfDetail(question, label, value) {
   question.append(makePdfElement('p', 'pdf-detail-label', label));
-  question.append(makePdfElement('div', 'pdf-detail', value || 'لم تتم إضافة تفاصيل.'));
+  const detailBox = makePdfElement('div', 'pdf-detail');
+  formatTextWithLinks(detailBox, value);
+  question.append(detailBox);
 }
 
-async function waitForFonts() {
-  if (document.fonts?.ready) {
-    try { await document.fonts.ready; } catch (_) { /* use fallback fonts */ }
-  }
-}
-
-async function generatePDF(answers, printWindow) {
-  await waitForFonts();
-
+function buildPrintableElement(answers) {
   const root = makePdfElement('div', 'pdf-export');
   root.setAttribute('dir', 'rtl');
   root.lang = 'ar';
+
   const header = makePdfElement('header', 'pdf-header');
   header.append(makePdfElement('div', 'pdf-brand', 'ROYA AGENCY'));
   header.append(makePdfElement('h1', 'pdf-title', 'استبيان متطلبات مشروع تطوير موقع إلكتروني'));
   header.append(makePdfElement('p', 'pdf-subtitle', 'Website Development Discovery & Requirements Questionnaire'));
   root.append(header);
+
+  // Top of PDF page 1: Prominent Timeline Banner
+  const timeline = getEstimatedTimeline();
+  if (timeline) {
+    const timelineBanner = makePdfElement('div', 'pdf-timeline-banner');
+    const info = makePdfElement('div', 'pdf-timeline-info');
+    info.append(makePdfElement('div', 'pdf-timeline-title', 'المدة الزمنية المتوقعة لتنفيذ المشروع · Estimated Project Timeline'));
+    info.append(makePdfElement('div', 'pdf-timeline-desc', `${timeline.desc} (${timeline.platformLabel} — ${timeline.workLabel})`));
+
+    const badge = makePdfElement('div', 'pdf-timeline-badge');
+    badge.append(makePdfElement('span', 'pdf-timeline-days-ar', timeline.daysAr));
+    badge.append(makePdfElement('span', 'pdf-timeline-days-en', ` (${timeline.daysEn})`));
+
+    timelineBanner.append(info);
+    timelineBanner.append(badge);
+    root.append(timelineBanner);
+  }
 
   const pageLabels = ['المنصة والاستضافة واللغات', 'الهوية والتجارة والتسويق', 'السياسات والوسائط والأصول'];
   for (let pageNum = 1; pageNum <= TOTAL_PAGES; pageNum++) {
@@ -239,7 +454,8 @@ async function generatePDF(answers, printWindow) {
       const question = makePdfElement('article', 'pdf-question');
       question.append(makePdfElement('h3', 'pdf-question-title', cleanLabel(block.querySelector('.question-text')) || name));
       let answerText = 'لم يتم تحديد إجابة';
-      if (name === 'q10') {
+      const checkboxes = block.querySelectorAll('input[type="checkbox"]');
+      if (checkboxes.length > 0) {
         const selected = [...block.querySelectorAll('input[type="checkbox"]:checked')].map(input => cleanLabel(input.closest('.option-item')));
         if (selected.length) answerText = selected.join('، ');
       } else {
@@ -275,9 +491,12 @@ async function generatePDF(answers, printWindow) {
         linkBlock.append(makePdfElement('p', 'pdf-detail-label', label));
         links.split(/\n+/).map(link => link.trim()).filter(Boolean).forEach(link => {
           const line = makePdfElement('p', 'pdf-asset-link');
-          if (/^https?:\/\//i.test(link)) {
-            const anchor = makePdfElement('a', '', link); anchor.href = link; anchor.target = '_blank'; anchor.rel = 'noopener noreferrer'; line.append(anchor);
-          } else { line.textContent = link; }
+          const cleanLink = link.replace(/[.,،؛)\]}>]+$/, '');
+          const anchor = makePdfElement('a', '', cleanLink);
+          anchor.href = normalizeHref(cleanLink);
+          anchor.target = '_blank';
+          anchor.rel = 'noopener noreferrer';
+          line.append(anchor);
           linkBlock.append(line);
         });
         assetSection.append(linkBlock);
@@ -288,71 +507,40 @@ async function generatePDF(answers, printWindow) {
   }
 
   root.append(makePdfElement('p', 'pdf-footer', `Roya Agency — استبيان متطلبات تطوير الموقع الإلكتروني · ${new Date().toLocaleDateString('ar-EG')}`));
-  const style = makePdfElement('style');
-  style.textContent = `
-    .pdf-export{box-sizing:border-box;width:190mm;padding:7mm;background:#fff;color:#20242b;font-family:'Cairo',Tahoma,Arial,sans-serif;direction:rtl;text-align:right;font-size:11px;line-height:1.9;}
-    .pdf-export *{box-sizing:border-box;max-width:100%;}
-    .pdf-header{border-bottom:3px solid #ff4632;padding:0 0 12px;margin-bottom:15px;}
-    .pdf-brand{font-family:Arial,sans-serif;color:#ff4632;font-size:10px;font-weight:800;letter-spacing:2px;direction:ltr;text-align:right;}
-    .pdf-title{font-family:'Cairo',Tahoma,Arial,sans-serif;font-size:19px;line-height:1.8;margin:6px 0;color:#20242b;font-weight:800;}
-    .pdf-subtitle{font-family:Arial,sans-serif;font-size:9px;color:#777;direction:ltr;text-align:right;margin:0;}
-    .pdf-page{margin:0 0 12px;}
-    .pdf-page-title{font-family:'Cairo',Tahoma,Arial,sans-serif;font-size:14px;color:#ff4632;border-right:4px solid #ff4632;padding:5px 9px;margin:0 0 10px;background:#fff1ef;}
-    .pdf-question{break-inside:avoid;border:1px solid #e6e8ec;border-radius:6px;padding:8px 10px;margin:0 0 8px;}
-    .pdf-question-title{font-family:'Cairo',Tahoma,Arial,sans-serif;font-size:11px;margin:0 0 5px;font-weight:700;line-height:1.9;}
-    .pdf-answer{font-family:'Cairo',Tahoma,Arial,sans-serif;margin:0;color:#242833;background:#fff8f6;padding:5px 8px;border-radius:3px;white-space:normal;overflow-wrap:anywhere;}
-    .pdf-detail-label{font-family:'Cairo',Tahoma,Arial,sans-serif;font-size:9px;color:#777;margin:7px 0 3px;}
-    .pdf-detail{font-family:'Cairo',Tahoma,Arial,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #eee;border-radius:3px;padding:6px 8px;min-height:24px;}
-    .pdf-asset-row{break-inside:avoid;margin:0 0 6px;padding-bottom:5px;border-bottom:1px solid #eee;}
-    .pdf-asset-link{font-family:Tahoma,Arial,sans-serif;direction:ltr;text-align:left;overflow-wrap:anywhere;word-break:break-word;font-size:9px;margin:4px 0 0;color:#2459a9;}
-    .pdf-asset-link a{color:#2459a9;text-decoration:underline;}
-    .pdf-drive-group{break-inside:avoid;border:1px solid #ffc0b8;border-radius:5px;padding:6px 8px;margin:8px 0;}
-    .pdf-drive-group .pdf-detail-label{color:#ff4632;font-weight:700;}
-    .pdf-footer{font-family:'Cairo',Tahoma,Arial,sans-serif;border-top:1px solid #ddd;color:#888;font-size:8px;padding-top:8px;margin-top:14px;}
-  `;
-  root.prepend(style);
+  return root;
+}
 
-  // Use the browser's native print engine instead of html2canvas/html2pdf.
-  // This avoids blank canvases (height 0) and preserves Arabic shaping/RTL text.
+async function submitForm() {
+  for (let page = 1; page <= TOTAL_PAGES; page++) {
+    if (!validatePage(page)) {
+      goToPage(page, true);
+      return;
+    }
+  }
+
+  const overlay = document.getElementById('successOverlay');
+  overlay?.classList.remove('hidden');
+  const button = document.getElementById('btnSubmit');
+  if (button) button.disabled = true;
+
   try {
-    await waitForFonts();
-    const printable = root.cloneNode(true);
-    printable.removeAttribute('style');
-    Object.assign(printable.style, {
-      position: 'static', display: 'block', width: '190mm', height: 'auto',
-      minHeight: '0', maxHeight: 'none', overflow: 'visible', opacity: '1',
-      visibility: 'visible', pointerEvents: 'auto', margin: '0 auto'
-    });
-    const printCss = `
-      @page { size: A4; margin: 10mm 8mm; }
-      html, body { margin: 0 !important; padding: 0 !important; background: #fff !important; }
-      body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      .pdf-export { width: 100% !important; margin: 0 auto !important; }
-      .pdf-question, .pdf-asset-row, .pdf-drive-group { break-inside: avoid; page-break-inside: avoid; }
-      .pdf-page { break-before: page; page-break-before: always; }
-      .pdf-page:first-of-type { break-before: auto; page-break-before: auto; }
-      a { color: #2459a9 !important; overflow-wrap: anywhere; }
-      .mobile-print-help { position: sticky; top: 0; z-index: 99999; padding: 12px; background: #ff4632; color: white; text-align: center; font: 16px Arial,sans-serif; }
-      .mobile-print-help button { display: block; margin: 8px auto 0; border: 0; border-radius: 8px; background: white; color: #ff4632; font-weight: 700; font-size: 16px; padding: 12px 18px; }
-      @media print { .mobile-print-help { display: none !important; } }
-    `;
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const helpBar = `<div class="mobile-print-help" id="mobilePrintHelp">لحفظ الاستبيان PDF على iPhone: اضغط الزر ثم اختر Share أو Save to Files.<button type="button" onclick="window.focus(); window.print();">طباعة / حفظ PDF</button></div>`;
-    printWindow.document.open();
-    printWindow.document.write(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Roya Completed Questionnaire</title><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>${printCss}</style></head><body>${isIOS ? helpBar : ''}${printable.outerHTML}<script>
-      window.addEventListener('load', async function(){
-        try { if(document.fonts && document.fonts.ready) await document.fonts.ready; } catch(e) {}
-        const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-        if (!ios) setTimeout(function(){ window.focus(); window.print(); }, 500);
-      });
-    <\/script></body></html>`);
-    printWindow.document.close();
+    const root = buildPrintableElement(collectAnswers());
+    const reportHtml = root.outerHTML;
+
+    window.royaPrintHtml = reportHtml;
+    try { sessionStorage.setItem('roya_print_html', reportHtml); } catch (_) {}
+    try { localStorage.setItem('roya_print_html', reportHtml); } catch (_) {}
+    const printWindow = window.open('print.html', '_blank');
+    if (!printWindow || printWindow.closed || typeof printWindow.closed === 'undefined') {
+      window.location.href = 'print.html';
+      return;
+    }
   } catch (error) {
-    printWindow.close();
-    throw error;
+    console.error('Print generation failed:', error);
+    alert('حدث خطأ أثناء تجهيز الطباعة. يرجى المحاولة مرة أخرى.');
   } finally {
-    root.remove();
-    document.body.classList.remove('exporting-pdf');
+    overlay?.classList.add('hidden');
+    if (button) button.disabled = false;
   }
 }
 

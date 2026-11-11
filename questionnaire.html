@@ -100,9 +100,8 @@
                         <label class="option-item"><input type="radio" name="q1" value="زد (Zid)" /><span
                                 class="radio-custom"></span><span class="option-text">زد <span
                                     class="opt-en">(Zid)</span></span></label>
-                        <label class="option-item"><input type="radio" name="q1"
-                                value="ووردبريس (WordPress)" /><span class="radio-custom"></span><span
-                                class="option-text">ووردبريس <span
+                        <label class="option-item"><input type="radio" name="q1" value="ووردبريس (WordPress)" /><span
+                                class="radio-custom"></span><span class="option-text">ووردبريس <span
                                     class="opt-en">(WordPress)</span></span></label>
                         <label class="option-item"><input type="radio" name="q1" value="شوبيفاي (Shopify)" /><span
                                 class="radio-custom"></span><span class="option-text">شوبيفاي <span
@@ -114,8 +113,8 @@
                     </div>
                     <div class="text-field-row">
                         <label class="text-label">تفاصيل المنصة أو البرمجة المطلوبة:</label>
-                        <input type="text" class="text-input" name="q1_details"
-                            placeholder="اكتب هنا أو الصق رابط..." />
+                        <textarea class="text-area" name="q1_details" rows="2"
+                            placeholder="اكتب هنا أو الصق رابط..."></textarea>
                     </div>
                 </div>
 
@@ -144,7 +143,8 @@
                     </div>
                     <div class="text-field-row">
                         <label class="text-label">رابط الثيم الحالي أو المقترح شراؤه (إن وجد):</label>
-                        <input type="text" class="text-input url-field" name="q2_details" placeholder="https://..." />
+                        <textarea class="text-area url-field" name="q2_details" rows="2"
+                            placeholder="https://..."></textarea>
                     </div>
                 </div>
 
@@ -170,8 +170,8 @@
                     </div>
                     <div class="text-field-row">
                         <label class="text-label">رابط الموقع الحالي أو بيانات الدخول (إن وجدت):</label>
-                        <input type="text" class="text-input url-field" name="q3_details"
-                            placeholder="https://... أو اكتب هنا" />
+                        <textarea class="text-area url-field" name="q3_details" rows="2"
+                            placeholder="https://... أو اكتب هنا"></textarea>
                     </div>
                 </div>
 
@@ -196,7 +196,7 @@
                     </div>
                     <div class="text-field-row">
                         <label class="text-label">اسم الدومين أو الدومين المقترح:</label>
-                        <input type="text" class="text-input" name="q4_details" placeholder="example.com" />
+                        <textarea class="text-area" name="q4_details" rows="2" placeholder="example.com"></textarea>
                     </div>
                 </div>
             </div>
@@ -234,7 +234,7 @@
                     </div>
                     <div class="text-field-row">
                         <label class="text-label">تحديد اللغات الإضافية المطلوبة:</label>
-                        <input type="text" class="text-input" name="q5_details" placeholder="اكتب هنا..." />
+                        <textarea class="text-area" name="q5_details" rows="2" placeholder="اكتب هنا..."></textarea>
                     </div>
                 </div>
             </div>
@@ -296,16 +296,17 @@
                                 والخطوط للموقع</span></label>
                     </div>
                     <div class="text-field-row">
-                        <label class="text-label">الألوان الفعلية / أكواد الألوان <span class="opt-en">(Hex
-                                Codes)</span> (إن وجدت):</label>
-                        <input type="text" class="text-input" name="q6_details"
-                            placeholder="#FF4632  أو اكتب الألوان..." />
+                        <label class="text-label">هل يوجد لون أساسي (Main Color) يرغب العميل في اعتماده واستخدامه كلون
+                            رئيسي في تصميم الموقع؟<span class="opt-en">(Hex
+                                Codes)</span> رجى تحديد كود اللون إن وجد.</label>
+                        <textarea class="text-area" name="q6_details" rows="2"
+                            placeholder="#FF4632  أو اكتب الألوان..."></textarea>
                     </div>
                 </div>
 
                 <!-- Q7 -->
                 <div class="question-block" id="q7-block">
-                    <div class="question-text"><span class="q-num">7</span> هل تُرجد مواقع مرجعية <span
+                    <div class="question-text"><span class="q-num">7</span> هل تُوجد مواقع مرجعية <span
                             class="q-en">(References)</span> يعجبك تصميمها أو طريقة عملها؟</div>
                     <div class="error-msg" id="q7-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2.5">
@@ -370,24 +371,28 @@
                             <circle cx="12" cy="12" r="10" />
                             <line x1="12" y1="8" x2="12" y2="12" />
                             <line x1="12" y1="16" x2="12.01" y2="16" />
-                        </svg> يرجى اختيار إجابة لهذا السؤال</div>
-                    <div class="options-grid one-col">
-                        <label class="option-item"><input type="radio" name="q9"
+                        </svg> يرجى اختيار خيار واحد على الأقل.</div>
+                    <p class="multi-select-hint">يمكنك اختيار أكثر من خيار واحد.</p>
+                    <div class="options-grid one-col q9-options">
+                        <label class="option-item"><input type="checkbox" name="q9"
                                 value="بوابات الدفع الرئيسية مجتمعة (Mada, Visa, Apple Pay)" /><span
-                                class="radio-custom"></span><span class="option-text">بوابات الدفع الرئيسية مجتمعة <span
+                                class="checkbox-custom"></span><span class="option-text">بوابات الدفع الرئيسية مجتمعة <span
                                     class="opt-en">(Mada, Visa, Apple Pay)</span></span></label>
-                        <label class="option-item"><input type="radio" name="q9"
+                        <label class="option-item"><input type="checkbox" name="q9"
                                 value="يشمل ربط شركات الشحن والتتبع وتجهيز الطلبات" /><span
-                                class="radio-custom"></span><span class="option-text">يشمل ربط شركات الشحن والتتبع
+                                class="checkbox-custom"></span><span class="option-text">يشمل ربط شركات الشحن والتتبع
                                 وتجهيز الطلبات</span></label>
-                        <label class="option-item"><input type="radio" name="q9"
-                                value="تفعيل الشراء بالتقسيط (Tabby / Tamara)" /><span class="radio-custom"></span><span
+                        <label class="option-item"><input type="checkbox" name="q9"
+                                value="تفعيل الشراء بالتقسيط (Tabby / Tamara)" /><span class="checkbox-custom"></span><span
                                 class="option-text">تفعيل الشراء بالتقسيط <span class="opt-en">(Tabby /
                                     Tamara)</span></span></label>
+                        <label class="option-item"><input type="checkbox" name="q9"
+                                value="لن يتم تغيير شيء في هذا الجزء" /><span class="checkbox-custom"></span><span
+                                class="option-text">لن يتم تغيير شيء في هذا الجزء</span></label>
                     </div>
                     <div class="text-field-row">
                         <label class="text-label">شركات الشحن المفضلة:</label>
-                        <input type="text" class="text-input" name="q9_details" placeholder="اكتب هنا..." />
+                        <textarea class="text-area" name="q9_details" rows="2" placeholder="اكتب هنا..."></textarea>
                     </div>
                 </div>
 
@@ -412,10 +417,13 @@
                                 class="checkbox-custom"></span><span class="option-text">TikTok Pixel</span></label>
                         <label class="option-item"><input type="checkbox" name="q10" value="Snap Pixel" /><span
                                 class="checkbox-custom"></span><span class="option-text">Snap Pixel</span></label>
+                        <label class="option-item" style="grid-column: 1 / -1;"><input type="checkbox" name="q10"
+                                value="لن يتم تغيير شيء في هذا الجزء" /><span class="checkbox-custom"></span><span
+                                class="option-text">لن يتم تغيير شيء في هذا الجزء</span></label>
                     </div>
                     <div class="text-field-row">
                         <label class="text-label">أدوات إضافية مطلوبة:</label>
-                        <input type="text" class="text-input" name="q10_details" placeholder="اكتب هنا..." />
+                        <textarea class="text-area" name="q10_details" rows="2" placeholder="اكتب هنا..."></textarea>
                     </div>
                 </div>
             </div>
@@ -474,7 +482,7 @@
                     </div>
                     <div class="text-field-row">
                         <label class="text-label">قائمة السياسات المطلوبة:</label>
-                        <input type="text" class="text-input" name="q11_details" placeholder="اكتب هنا..." />
+                        <textarea class="text-area" name="q11_details" rows="2" placeholder="اكتب هنا..."></textarea>
                     </div>
                 </div>
             </div>
@@ -534,6 +542,9 @@
                                 value="لا، يكتفي الموقع بفيديوهات يقدمها العميل" /><span
                                 class="radio-custom"></span><span class="option-text">لا، يكتفي الموقع بفيديوهات يقدمها
                                 العميل</span></label>
+                        <label class="option-item"><input type="radio" name="q13"
+                                value="لن يتم استعمال فيديوهات في الموقع" /><span
+                                class="radio-custom"></span><span class="option-text">لن يتم استعمال فيديوهات في الموقع</span></label>
                     </div>
                     <div class="text-field-row">
                         <label class="text-label">تفاصيل جهة تصوير الفيديو (إن وجدت):</label>

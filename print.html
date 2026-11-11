@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طباعة وحفظ الاستبيان PDF – Roya Agency</title>
+    <link rel="icon" type="image/png" href="Red-.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --brand: #ff4632;
+            --brand-dark: #d63320;
+            --brand-light: #fff8f6;
+            --brand-border: #ffc0b8;
+        }
+
+        body {
+            font-family: 'Cairo', Tahoma, Arial, sans-serif;
+            background: #f4f5f7;
+            color: #20242b;
+            direction: rtl;
+            text-align: right;
+            padding: 0;
+            margin: 0;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        /* Top Action Bar (hidden when printing) */
+        .print-top-bar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99999;
+            background: #ffffff;
+            border-bottom: 2px solid #ff4632;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .print-bar-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .print-bar-logo {
+            height: 32px;
+            width: auto;
+        }
+
+        .print-bar-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+
+        .print-bar-sub {
+            font-size: 11px;
+            color: #777;
+        }
+
+        .print-bar-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-print {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--brand);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .btn-print:hover {
+            background: var(--brand-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-close {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f0f1f4;
+            color: #444;
+            border: 1px solid #dcdfe4;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-close:hover {
+            background: #e4e6ea;
+        }
+
+        /* Container for printable content */
+        .print-container {
+            max-width: 210mm;
+            margin: 24px auto 48px;
+            background: #fff;
+            padding: 10mm 12mm;
+            border-radius: 8px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+        }
+
+
+        @media screen and (max-width: 767px) {
+            .pdf-timeline-banner {
+                display: inline-grid !important;
+            }
+
+            .pdf-timeline-info {
+                order: 1 !important;
+            }
+
+            .pdf-timeline-badge {
+
+                justify-content: center !important;
+            }
+        }
+
+        /* Print styles */
+        @page {
+            size: A4;
+            margin: 10mm 8mm;
+        }
+
+        @media print {
+            body {
+                background: #fff !important;
+                padding: 0 !important;
+            }
+
+            .print-top-bar {
+                display: none !important;
+            }
+
+            .print-container {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+
+            .pdf-export {
+                width: 100% !important;
+                padding: 0 !important;
+            }
+
+            .pdf-question,
+            .pdf-asset-row,
+            .pdf-drive-group,
+            .pdf-timeline-banner {
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+
+            .pdf-page {
+                break-before: page !important;
+                page-break-before: always !important;
+            }
+
+            .pdf-page:first-of-type {
+                break-before: auto !important;
+                page-break-before: auto !important;
+            }
+        }
+
+        /* Report styling */
+        .pdf-export {
+            box-sizing: border-box;
+            width: 100%;
+            background: #fff;
+            color: #20242b;
+            font-family: 'Cairo', Tahoma, Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+            font-size: 11px;
+            line-height: 1.9;
+        }
+
+        .pdf-header {
+            border-bottom: 3px solid #ff4632;
+            padding: 0 0 12px;
+            margin-bottom: 14px;
+        }
+
+        .pdf-brand {
+            font-family: 'Inter', Arial, sans-serif;
+            color: #ff4632;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .pdf-title {
+            font-family: 'Cairo', Tahoma, Arial, sans-serif;
+            font-size: 19px;
+            line-height: 1.8;
+            margin: 6px 0;
+            color: #20242b;
+            font-weight: 800;
+        }
+
+        .pdf-subtitle {
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 9.5px;
+            color: #777;
+            direction: ltr;
+            text-align: right;
+            margin: 0;
+        }
+
+        .pdf-timeline-banner {
+            break-inside: avoid;
+            border: 2px solid #ff4632;
+            border-radius: 8px;
+            background: #fff8f6;
+            padding: 10px 14px;
+            margin: 0 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(255, 70, 50, 0.08);
+        }
+
+        .pdf-timeline-title {
+            font-family: 'Cairo', Tahoma, Arial, sans-serif;
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #ff4632;
+            margin: 0 0 3px;
+        }
+
+        .pdf-timeline-desc {
+            font-family: 'Cairo', Tahoma, Arial, sans-serif;
+            font-size: 10px;
+            color: #555;
+            margin: 0;
+        }
+
+        .pdf-timeline-badge {
+            background: #ff4632;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-family: 'Cairo', Tahoma, Arial, sans-serif;
+            font-size: 13.5px;
+            font-weight: 800;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .pdf-timeline-days-ar {
+            font-size: 13.5px;
+            font-weight: 800;
+        }
+
+        .pdf-timeline-days-en {
+            font-size: 11px;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+
+        .pdf-page {
+            margin: 0 0 14px;
+        }
+
+        .pdf-page-title {
+            font-family: 'Cairo', Tahoma, Arial, sans-serif;
+            font-size: 14px;
+            color: #ff4632;
+            border-right: 4px solid #ff4632;
+            padding: 5px 10px;
+            margin: 0 0 10px;
+            background: #fff1ef;
+            font-weight: 700;
+        }
+
+        .pdf-question {
+            break-inside: avoid;
+            border: 1px solid #e6e8ec;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin: 0 0 8px;
+            background: #fff;
+        }
+
+        .pdf-question-title {
+            font-family: 'Cairo', Tahoma, Arial, sans-serif;
+            font-size: 11.5px;
+            margin: 0 0 5px;
+            font-weight: 700;
+            line-height: 1.8;
+            color: #1a1a1a;
+        }
+
+        .pdf-answer {
+            font-family: 'Cairo', Tahoma, Arial, sans-serif;
+            margin: 0;
+            color: #242833;
+            background: #fff8f6;
+            padding: 5px 8px;
+            border-radius: 4px;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            font-size: 11px;
+        }
+
+        .pdf-detail-label {
+            font-family: 'Cairo', Tahoma, Arial, sans-serif;
+            font-size: 9.5px;
+            color: #777;
+            margin: 7px 0 3px;
+            font-weight: 600;
+        }
+
+        .pdf-detail {
+            font-family: 'Cairo', Tahoma, Arial, sans-serif;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 6px 8px;
+            min-height: 24px;
+            font-size: 10.5px;
+            background: #fafafa;
+        }
+
+        .pdf-asset-row {
+            break-inside: avoid;
+            margin: 0 0 6px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pdf-asset-link {
+            font-family: 'Inter', Tahoma, Arial, sans-serif;
+            direction: ltr;
+            text-align: left;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            font-size: 9.5px;
+            margin: 4px 0 0;
+            color: #2459a9;
+        }
+
+        .pdf-detail a,
+        .clickable-pdf-link,
+        .pdf-asset-link a {
+            color: #1a62d6 !important;
+            text-decoration: underline !important;
+            font-weight: 600 !important;
+            direction: ltr !important;
+            unicode-bidi: embed !important;
+            word-break: break-all !important;
+            cursor: pointer !important;
+        }
+
+        .pdf-detail a:hover,
+        .clickable-pdf-link:hover,
+        .pdf-asset-link a:hover {
+            color: #ff4632 !important;
+        }
+
+        .pdf-drive-group {
+            break-inside: avoid;
+            border: 1px solid #ffc0b8;
+            border-radius: 6px;
+            padding: 6px 10px;
+            margin: 8px 0;
+            background: #fff9f8;
+        }
+
+        .pdf-drive-group .pdf-detail-label {
+            color: #ff4632;
+            font-weight: 700;
+        }
+
+        .pdf-footer {
+            font-family: 'Cairo', Tahoma, Arial, sans-serif;
+            border-top: 1px solid #ddd;
+            color: #888;
+            font-size: 8.5px;
+            padding-top: 8px;
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .empty-state p {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="print-top-bar" id="printTopBar">
+        <div class="print-bar-info">
+            <img src="Red-.png" alt="Roya" class="print-bar-logo">
+            <div>
+                <div class="print-bar-title">استبيان متطلبات تطوير الموقع الإلكتروني</div>
+                <div class="print-bar-sub">جاهز للحفظ بصيغة PDF أو الطباعة المباشرة</div>
+            </div>
+        </div>
+        <div class="print-bar-actions">
+            <button type="button" class="btn-print" id="btnPrintManual" onclick="triggerPrint()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                طباعة / حفظ PDF
+            </button>
+            <button type="button" class="btn-close" onclick="window.close()">إغلاق</button>
+        </div>
+    </div>
+
+    <main class="print-container" id="printContent">
+        <!-- Rendered dynamically -->
+    </main>
+
+    <script>
+        function triggerPrint() {
+            window.focus();
+            window.print();
+        }
+
+        function loadPrintContent() {
+            const container = document.getElementById('printContent');
+            let html = '';
+
+            try {
+                if (window.opener && window.opener.royaPrintHtml) {
+                    html = window.opener.royaPrintHtml;
+                }
+            } catch (e) { }
+
+            if (!html) {
+                try {
+                    html = sessionStorage.getItem('roya_print_html') || localStorage.getItem('roya_print_html');
+                } catch (e) { }
+            }
+
+            if (html && html.trim()) {
+                container.innerHTML = html;
+                let printed = false;
+                function safePrint() {
+                    if (printed) return;
+                    printed = true;
+                    triggerPrint();
+                }
+                if (document.fonts && document.fonts.ready) {
+                    document.fonts.ready.then(() => {
+                        setTimeout(safePrint, 300);
+                    }).catch(() => {
+                        setTimeout(safePrint, 300);
+                    });
+                }
+                setTimeout(safePrint, 800);
+            } else {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>لا توجد بيانات استبيان جاهزة للطباعة</h3>
+                        <p>يرجى تعبئة استبيان متطلبات تطوير الموقع أولاً ثم الضغط على "إرسال وتحميل PDF".</p>
+                        <a href="questionnaire.html" class="btn-print" style="text-decoration:none; display:inline-block;">الذهاب للاستبيان</a>
+                    </div>
+                `;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadPrintContent);
+    </script>
+</body>
+
+</html>
