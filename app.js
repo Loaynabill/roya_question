@@ -85,83 +85,199 @@ function getSelectedPlatform() {
   if (val.includes('zid') || val.includes('زد') || val.includes('shopify') || val.includes('شوبيفاي') || val.includes('salla') || val.includes('سلة')) {
     return {
       type: 'saas',
-      label: selected.value.replace(/\s*\([^)]*\)/g, '').trim()
+      label: selected.value.replace(/\s*\([^)]*\)/g, '').trim(),
+      raw: selected.value
     };
   }
   if (val.includes('wordpress') || val.includes('ووردبريس') || val.includes('custom') || val.includes('برمجة خاصة') || val.includes('كود')) {
     return {
       type: 'custom',
-      label: selected.value.replace(/\s*\([^)]*\)/g, '').trim()
+      label: selected.value.replace(/\s*\([^)]*\)/g, '').trim(),
+      raw: selected.value
+    };
+  }
+  return null;
+}
+
+function getSelectedThemeApproach() {
+  const selected = document.querySelector('input[type="radio"][name="q2"]:checked');
+  if (!selected) return null;
+  const val = selected.value;
+  if (val.includes('التعديل وتطوير الثيم الحالي') || val.includes('الثيم الحالي')) {
+    return {
+      type: 'current_theme',
+      label: 'تعديل الثيم الحالي'
+    };
+  }
+  if (val.includes('شراء ثيم جاهز') || val.includes('شراء')) {
+    return {
+      type: 'buy_theme',
+      label: 'شراء ثيم جديد'
+    };
+  }
+  if (val.includes('تصميم وبناء ثيم خاص') || val.includes('Custom Theme')) {
+    return {
+      type: 'custom_theme',
+      label: 'تصميم وبناء ثيم خاص'
+    };
+  }
+  return null;
+}
+
+function getSelectedSiteStatus() {
+  const selected = document.querySelector('input[type="radio"][name="q3"]:checked');
+  if (!selected) return null;
+  const val = selected.value;
+  if (val.includes('من الصفر') || val.includes('New Build') || val.includes('لا،')) {
+    return {
+      hasSite: false,
+      type: 'new',
+      label: 'بناء موقع جديد من الصفر'
+    };
+  }
+  if (val.includes('موقع وحساب حالي') || val.includes('نعم')) {
+    return {
+      hasSite: true,
+      type: 'existing',
+      label: 'يوجد موقع وحساب حالي'
     };
   }
   return null;
 }
 
 function getSelectedWorkType() {
-  const selected = document.querySelector('input[type="radio"][name="q3"]:checked');
-  if (!selected) return null;
-  const val = selected.value;
-  if (val.includes('من الصفر') || val.includes('New Build')) {
-    return {
-      type: 'new',
-      label: 'إنشاء من الصفر'
-    };
-  }
-  if (val.includes('موقع وحساب حالي') || val.includes('التعديل')) {
-    return {
-      type: 'existing',
-      label: 'تعديلات على موقع حالي'
-    };
-  }
-  return null;
+  return getSelectedSiteStatus();
 }
 
 function getEstimatedTimeline() {
   const platform = getSelectedPlatform();
-  const workType = getSelectedWorkType();
-  if (!platform || !workType) return null;
+  const theme = getSelectedThemeApproach();
+  const site = getSelectedSiteStatus();
 
+  if (!platform) return null;
+
+  // 1. منصات سلة (Salla) أو زد (Zid) أو شوبيفاي (Shopify)
   if (platform.type === 'saas') {
-    if (workType.type === 'new') {
+    // بناء موقع جديد من الصفر: من 4 إلى 5 أيام
+    if ((site && !site.hasSite) || (theme && theme.type === 'custom_theme' && (!site || !site.hasSite))) {
       return {
-        daysAr: '3 – 4 أيام',
-        daysEn: '3 – 4 Days',
-        badge: 'تسليم قياسي · Standard',
+        daysAr: 'من 4 إلى 5 أيام',
+        daysEn: '4 – 5 Days',
+        badge: 'بناء متجر متكامل · Full Build',
         platformLabel: platform.label,
-        workLabel: workType.label,
-        desc: 'المدة التقديرية لتنفيذ المشروع بناءً على متطلباتك واختياراتك.'
-      };
-    } else {
-      return {
-        daysAr: '1 – 2 يوم',
-        daysEn: '1 – 2 Days',
-        badge: 'تسليم سريع · Express',
-        platformLabel: platform.label,
-        workLabel: workType.label,
-        desc: 'المدة التقديرية لتنفيذ المشروع بناءً على متطلباتك واختياراتك.'
+        siteStatusLabel: site ? site.label : 'بناء من الصفر',
+        themeLabel: theme ? theme.label : 'متجر متكامل',
+        workLabel: 'بناء موقع جديد من الصفر',
+        desc: `المدة التقديرية لبناء متجر جديد بالكامل من الصفر على منصة ${platform.label}.`
       };
     }
-  } else if (platform.type === 'custom') {
-    if (workType.type === 'new') {
+
+    // لو العميل عنده موقع بالفعل، وهننفّذ التعديلات على الثيم الحالي: من يوم إلى 3 أيام
+    if (theme && theme.type === 'current_theme') {
       return {
-        daysAr: '5 – 6 أيام',
-        daysEn: '5 – 6 Days',
-        badge: 'تطوير متكامل · Full Build',
+        daysAr: 'من يوم إلى 3 أيام',
+        daysEn: '1 – 3 Days',
+        badge: 'تسليم سريع · Express',
         platformLabel: platform.label,
-        workLabel: workType.label,
-        desc: 'المدة التقديرية لتنفيذ المشروع بناءً على متطلباتك واختياراتك.'
+        siteStatusLabel: site ? site.label : 'موقع حالي',
+        themeLabel: theme.label,
+        workLabel: 'تعديلات على الثيم الحالي',
+        desc: `المدة التقديرية لتنفيذ التعديلات على الثيم الحالي لمتجر ${platform.label} القائم.`
       };
-    } else {
+    }
+
+    // لو العميل عنده موقع، لكنه هيشتري ثيم جديد وهنشتغل عليه: من 3 إلى 4 أيام
+    if (theme && theme.type === 'buy_theme') {
       return {
-        daysAr: '3 – 4 أيام',
+        daysAr: 'من 3 إلى 4 أيام',
+        daysEn: '3 – 4 Days',
+        badge: 'تجهيز ثيم جديد · New Theme',
+        platformLabel: platform.label,
+        siteStatusLabel: site ? site.label : 'موقع حالي',
+        themeLabel: theme.label,
+        workLabel: 'تجهيز وتشغيل ثيم جديد',
+        desc: `المدة التقديرية لشراء وتجهيز ثيم جديد وتشغيله لمتجر ${platform.label} القائم.`
+      };
+    }
+
+    // لو العميل عنده موقع، ولكن اختار بناء ثيم خاص بالكامل: من 4 إلى 5 أيام
+    if (theme && theme.type === 'custom_theme' && site && site.hasSite) {
+      return {
+        daysAr: 'من 4 إلى 5 أيام',
+        daysEn: '4 – 5 Days',
+        badge: 'ثيم خاص بالكامل · Custom Theme',
+        platformLabel: platform.label,
+        siteStatusLabel: site.label,
+        themeLabel: theme.label,
+        workLabel: 'تصميم وبناء ثيم خاص',
+        desc: `المدة التقديرية لتصميم وبناء ثيم خاص مخصص لمتجر ${platform.label}.`
+      };
+    }
+
+    // لو اختار موقع حالي وبانتظار تحديد الثيم
+    if (site && site.hasSite) {
+      return {
+        daysAr: 'من يوم إلى 4 أيام',
+        daysEn: '1 – 4 Days',
+        badge: 'بانتظار تحديد الثيم',
+        platformLabel: platform.label,
+        siteStatusLabel: site.label,
+        themeLabel: 'يرجى اختيار اتجاه الثيم',
+        workLabel: 'تطوير على موقع حالي',
+        desc: `تتراوح المدة التقديرية بين 1 و4 أيام بحسب اختيار التعديل على الثيم الحالي أو شراء ثيم جديد.`
+      };
+    }
+
+    return null;
+  }
+
+  // 2. البرمجة الخاصة (Custom Code) أو WordPress
+  if (platform.type === 'custom') {
+    // لو العميل معندوش موقع وهنبني الموقع من الصفر: من 5 إلى 6 أيام
+    if (site && !site.hasSite) {
+      return {
+        daysAr: 'من 5 إلى 6 أيام',
+        daysEn: '5 – 6 Days',
+        badge: 'بناء متكامل من الصفر · Full Build',
+        platformLabel: platform.label,
+        siteStatusLabel: site.label,
+        themeLabel: theme ? theme.label : 'بناء كامل من الصفر',
+        workLabel: 'إنشاء موقع جديد من الصفر',
+        desc: `المدة التقديرية لبناء وتطوير موقع جديد بالكامل من الصفر بتقنية ${platform.label}.`
+      };
+    }
+
+    // لو العميل عنده موقع بالفعل وهننفّذ تعديلات عليه: من 3 إلى 4 أيام
+    if (site && site.hasSite) {
+      return {
+        daysAr: 'من 3 إلى 4 أيام',
         daysEn: '3 – 4 Days',
         badge: 'تطوير وتعديل · Custom Dev',
         platformLabel: platform.label,
-        workLabel: workType.label,
-        desc: 'المدة التقديرية لتنفيذ المشروع بناءً على متطلباتك واختياراتك.'
+        siteStatusLabel: site.label,
+        themeLabel: theme ? theme.label : 'تعديلات على الموقع',
+        workLabel: 'تعديلات على موقع حالي',
+        desc: `المدة التقديرية لتنفيذ التعديلات والتطويرات على موقع ${platform.label} الحالي.`
       };
     }
+
+    // لو اختار تعديل الثيم الحالي قبل تحديد سؤال 3
+    if (theme && theme.type === 'current_theme') {
+      return {
+        daysAr: 'من 3 إلى 4 أيام',
+        daysEn: '3 – 4 Days',
+        badge: 'تطوير وتعديل · Custom Dev',
+        platformLabel: platform.label,
+        siteStatusLabel: 'موقع حالي',
+        themeLabel: theme.label,
+        workLabel: 'تعديلات على موقع حالي',
+        desc: `المدة التقديرية لتنفيذ التعديلات والتطويرات على موقع ${platform.label} الحالي.`
+      };
+    }
+
+    return null;
   }
+
   return null;
 }
 
@@ -216,6 +332,10 @@ function showToast(message) {
 }
 
 function navigate(direction) {
+  if (direction === -1 && currentPage === 1) {
+    window.location.href = 'index.html';
+    return;
+  }
   if (direction === 1 && !validatePage(currentPage)) return;
   goToPage(currentPage + direction, true);
 }
@@ -241,7 +361,27 @@ function updateNav() {
   const next = document.getElementById('btnNext');
   const submit = document.getElementById('btnSubmit');
   const fill = document.getElementById('progressBarFill');
-  if (prev) prev.style.display = currentPage > 1 ? 'inline-flex' : 'none';
+  if (prev) {
+    prev.style.display = 'inline-flex';
+    if (currentPage === 1) {
+      prev.innerHTML = `
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        الرئيسية
+      `;
+      prev.title = 'العودة للصفحة الرئيسية (اختيار الخدمة)';
+    } else {
+      prev.innerHTML = `
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+        السابق
+      `;
+      prev.title = 'الصفحة السابقة';
+    }
+  }
   if (next) next.style.display = currentPage < TOTAL_PAGES ? 'inline-flex' : 'none';
   if (submit) submit.style.display = currentPage === TOTAL_PAGES ? 'inline-flex' : 'none';
   if (fill) fill.style.width = `${(currentPage / TOTAL_PAGES) * 100}%`;
@@ -528,8 +668,8 @@ async function submitForm() {
     const reportHtml = root.outerHTML;
 
     window.royaPrintHtml = reportHtml;
-    try { sessionStorage.setItem('roya_print_html', reportHtml); } catch (_) {}
-    try { localStorage.setItem('roya_print_html', reportHtml); } catch (_) {}
+    try { sessionStorage.setItem('roya_print_html', reportHtml); } catch (_) { }
+    try { localStorage.setItem('roya_print_html', reportHtml); } catch (_) { }
     const printWindow = window.open('print.html', '_blank');
     if (!printWindow || printWindow.closed || typeof printWindow.closed === 'undefined') {
       window.location.href = 'print.html';
